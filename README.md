@@ -6,7 +6,7 @@ Members
 =======
 | **Member** | **GitHub** | **Role** |
 |:----------:|:----------:|:--------:|
-| Milo <Last>| [`@M4598bm`] (https://github.com/M4598bm) |   |
+| Milo Bernfield| [`@M4598bm`] (https://github.com/M4598bm) |   |
 | Tony Li    | [`@tonyli7`] (https://github.com/tonyli7) |   |
 | Dillon Zhang | [`@dillzhang`] (https://github.com/dillzhang) |   |
 
