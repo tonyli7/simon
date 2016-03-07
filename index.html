@@ -1,13 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head> <title> Simon </title> 
+  <head>
+    <title> Simon </title> 
     <link rel="stylesheet" type="text/css" href="simon.css">
   </head>
   
   <body>
     <h1 align="center"> simon </h1>
+    <div style="text-align:center;">
+      <svg id="vimage" height="500" width="500">
+	<circle cx="250" cy="250" r="245" fill="grey" stroke="black"/>
+	<!--
+	    <path d="<path data>" fill="<fill>" stroke="black"/>
+	    path data:
+	    M - move to xcor ycor
+	    A - arc to xradius yradius axis_of_rotation large-arc sweep-arc endx endy
+	    L - line to xcor ycor
+	    Z - close the path
+	    -->
+	<path id="red" d="M240 15
+			  A 245, 245, 0, 0, 0, 15, 245
+			  L 245 245 Z" fill="red" stroke="black"/>
+	<path id="green" d="M485 245
+			    A 255, 245, 0, 0, 0, 255, 15
+			    L 255, 245 Z" fill="green" stroke="black"/>
+	<path id="blue" d="M15 255
+			   A 245, 255, 0, 0, 0, 245, 485
+			   L 245, 255 Z" fill="blue" stroke="black"/>
+	<path id="yellow" d="M255 485
+			     A 255, 255, 0, 0, 0, 485, 255
+			     L 255, 255 Z" fill="yellow" stroke="black"/>
+	
+	<circle cx="250" cy="250" r="100" fill="grey" stroke="black"/>
+	<circle cx="250" cy="250" r="90" fill="grey" stroke="black"/>
+	<text x="175" y="260" font-size="40" fill="black">simon</text>
+    </svg>
+    </div>
+      <table align="center">
+	<tr>
+	  <td>
+	    <button class="button" id="new" type="button">new game</button>
+	  </td>
+	  <td>
+	    <h2> High Score: </h2>
+	  </td>
+	  <td>
+	    <h2 id="high">5</h2>
+	  </td>
+	</tr>
+      </table>
     <h2>
       <u>How to play:</u>
+<<<<<<< HEAD
       Repeat the blinking colors in the correct order.
       The sequence will repeat each time, and each time the sequence will get longer by one.
      </h2>
@@ -40,6 +84,24 @@
      
     </svg>
     <button class="button" id="restart" type="button"> restart </button>
+=======
+    </h2>
+    <h4>
+      Simon is a memory retention game. It will play a sequence using the four different colors.
+      Your job is to repeat the sequence back. If you are successful, the sequence will continue to grow until you fail.
+    </h4>
+    <h2>
+      <u>About</u>
+    </h2>
+    <h4>
+      <ul>
+	<li>
+	  Learn more about Simon: <a href="https://en.wikipedia.org/wiki/Simon_(game)"> Wikipedia </a>
+	</li>
+	<li>
+	  View the source code: <a href="https://github.com/tonyli7/simon"> Github </a>
+	</li>
+    </h4>
   </body>
   <script src="simon.js"> </script>
 </html>
