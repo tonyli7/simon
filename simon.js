@@ -8,13 +8,22 @@ var button = document.getElementById("new"); //Button for starting the game
 var high = document.getElementById("high"); //High score display
 
 //Functions to flash the different sectors
+var red_sound = document.createElement("AUDIO");
+var green_sound = document.createElement("AUDIO");
+var blue_sound = document.createElement("AUDIO");
+var yellow_sound = document.createElement("AUDIO");
+red_sound.src="sound/E4.wav";
+green_sound.src="sound/G5.wav";
+blue_sound.src="sound/G4.wav";
+yellow_sound.src="sound/C4.wav";
 var redFlash = function redFlash() {
     console.log("red");
+    red_sound.play();
     red.setAttribute("fill","#ffaaaa"); //Changes the color slightly to show a flash
     if (entering) { //Whether this flash is for playing or a user is inputing
 	player.push(0); //Adds this sectors value to the list for the player
     }
-    setTimeout(redReturn, 400); //Waits for the color to return
+    setTimeout(redReturn, 800); //Waits for the color to return
 }
 var redReturn = function redReturn() {
     red.setAttribute("fill", "red"); //Changes back to the initial color
@@ -22,11 +31,12 @@ var redReturn = function redReturn() {
 }
 var greenFlash = function greenFlash() {
     console.log("green");
+    green_sound.play();
     green.setAttribute("fill","#aaffaa");
     if (entering) {
 	player.push(1);
     }
-    setTimeout(greenReturn, 400);
+    setTimeout(greenReturn, 800);
 }
 var greenReturn = function greenReturn() {
     green.setAttribute("fill", "green");
@@ -34,11 +44,12 @@ var greenReturn = function greenReturn() {
 }
 var blueFlash = function blueFlash() {
     console.log("blue");
+    blue_sound.play();
     blue.setAttribute("fill","#aaaaff");
     if (entering) {
 	player.push(2);
     }
-    setTimeout(blueReturn, 400);
+    setTimeout(blueReturn, 800);
 }
 var blueReturn = function blueReturn() {
     blue.setAttribute("fill", "blue");
@@ -46,15 +57,16 @@ var blueReturn = function blueReturn() {
 }
 var yellowFlash = function yellowFlash() {
     console.log("yellow");
+    yellow_sound.play();
     yellow.setAttribute("fill","#ffffaa");
     if (entering) {
 	player.push(3);
     }
-    setTimeout(yellowReturn, 400);
+    setTimeout(yellowReturn, 800);
 }
 var yellowReturn = function yellowReturn() {
     yellow.setAttribute("fill", "yellow");
-    setTimeout(play,100);
+    setTimeout(play,200);
 }
 //Storing the flashing functions
 var flash = [ redFlash, greenFlash, blueFlash, yellowFlash ];
