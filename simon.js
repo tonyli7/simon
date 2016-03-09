@@ -91,6 +91,29 @@ function gameover() {
 	output += "You scored " + player.length + "."; //Just the score since there is no new high score
     }
     alert(output); //Alert the user of the game over status
+    demoID = setInterval(demo, 500);
 }
 
-button.addEventListener("click", setup);
+var demoID;
+var demo = function demo() {
+    flash(Math.floor(Math.random() * 4));
+}
+var startup = function() {
+    clearInterval(demoID);
+    for (var i = 0; i < 4; i++) {
+	flash(i);
+    }
+    setTimeout(setup, 1500);
+}
+
+var rotationID;
+var rotate = function() {
+    for (var i = 0; i < 4; i++) {
+	var degrees = parseInt(sectors[i].getAttribute("transform").split(" ")[0].slice(7));
+	degrees = (degrees + simon.length + 1) % 360;
+	sectors[i].setAttribute("transform", "rotate(" + degrees.toString() + "  250 250)");
+    }
+}
+button.addEventListener("click", startup);
+demoID = setInterval(demo, 500);
+rotationID = setInterval(rotate, 500);
