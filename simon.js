@@ -1,8 +1,11 @@
 //Variables for elements on screen
-var red = document.getElementById("red");
-var green = document.getElementById("green");
-var blue = document.getElementById("blue");
-var yellow = document.getElementById("yellow");
+var red = document.getElementById("0");
+var green = document.getElementById("1");
+var blue = document.getElementById("2");
+var yellow = document.getElementById("3");
+var sectors = [red, green, blue, yellow];
+var colors = ["red", "green", "blue", "yellow"];
+var flashes = ["#ffaaaa", "#aaffaa", "#aaaaff", "#ffffaa"]
 
 var button = document.getElementById("new"); //Button for starting the game
 var high = document.getElementById("high"); //High score display
@@ -16,136 +19,70 @@ red_sound.src="sound/E4.wav";
 green_sound.src="sound/G5.wav";
 blue_sound.src="sound/G4.wav";
 yellow_sound.src="sound/C4.wav";
-var redFlash = function redFlash() {
-    console.log("red");
-    red_sound.play();
-    red.setAttribute("fill","#ffaaaa"); //Changes the color slightly to show a flash
-    if (entering) { //Whether this flash is for playing or a user is inputing
-	player.push(0); //Adds this sectors value to the list for the player
-    }
-    setTimeout(redReturn, 800); //Waits for the color to return
-}
-var redReturn = function redReturn() {
-    red.setAttribute("fill", "red"); //Changes back to the initial color
-    setTimeout(play,100); //Calls play for a check on the state of the game (Explained in play)
-}
-var greenFlash = function greenFlash() {
-    console.log("green");
-    green_sound.play();
-    green.setAttribute("fill","#aaffaa");
-    if (entering) {
-	player.push(1);
-    }
-    setTimeout(greenReturn, 800);
-}
-var greenReturn = function greenReturn() {
-    green.setAttribute("fill", "green");
-    setTimeout(play,100);
-}
-var blueFlash = function blueFlash() {
-    console.log("blue");
-    blue_sound.play();
-    blue.setAttribute("fill","#aaaaff");
-    if (entering) {
-	player.push(2);
-    }
-    setTimeout(blueReturn, 800);
-}
-var blueReturn = function blueReturn() {
-    blue.setAttribute("fill", "blue");
-    setTimeout(play,100);
-}
-var yellowFlash = function yellowFlash() {
-    console.log("yellow");
-    yellow_sound.play();
-    yellow.setAttribute("fill","#ffffaa");
-    if (entering) {
-	player.push(3);
-    }
-    setTimeout(yellowReturn, 800);
-}
-var yellowReturn = function yellowReturn() {
-    yellow.setAttribute("fill", "yellow");
-    setTimeout(play,200);
-}
-//Storing the flashing functions
-var flash = [ redFlash, greenFlash, blueFlash, yellowFlash ];
+var sounds = [red_sound, green_sound, blue_sound, yellow_sound];
 
-//Playing a sequence
-var playing = false; //Whether or not play a sequence
-var flashes = []; //The sequence as a global variable
-function toplay(instructions) {
-    flashes = instructions; //Set the sequence to the global variable
-    playing = true; //Set playing to true
-    play(); //Play the sequence
+function flash(color_num) {
+    console.log(colors[color_num]);
+    sounds[color_num].play();
+    sectors[color_num].setAttribute("fill", flashes[color_num]);
+    setTimeout(function() {sectors[color_num].setAttribute("fill", colors[color_num]);}, 400);
 }
-//Multiptle Functionality
-// - Since all the flashing functions loops back to this singular function, it can be a crossroads
-//    - Used to check if the player has entered enough moves and then will determine a level up or a lose
-//    - Used to continue the playing of a sequence by flashing a sector from the list and removing it
-//       - The flash will then loop back again until the list is empty
-//    - Allows the user to input values again after the playing has finished
-function play() {
+
+var playerAddition = function playerAddition() {
+    var color_id = parseInt(this.id);
+    player.push(color_id);
+    flash(color_id);
     if (simon.length == player.length) {
-	removeEventListners();
-	for (i = 0; i < simon.length; i++) {
-	    if (simon[i] != player[i]) {
-		gameover();
-		return;
-	    }
-	}
-	setTimeout(levelup, 200);
-    } else if (playing && flashes.length > 0) {
-	flash[flashes[0]]();
-	flashes = flashes.slice(1,flashes.length);
+	check();
+    }
+}
+function removeEventListeners() {
+    for (var i = 0; i < 4; i++) {
+	sectors[i].removeEventListener("click", playerAddition);
+    }
+}
+function addEventListeners() {
+    for (var i = 0; i < 4; i++) {
+	sectors[i].addEventListener("click", playerAddition);
+    };
+}
+
+var play = function play(steps) {
+    if (steps.length > 0) {
+	flash(steps[0]);
+	setTimeout(play, 500, steps.slice(1, steps.length));
     } else {
-	playing = false;
-	flashes = [];
 	addEventListeners();
     }
 }
 
-//Functions to allow user input or deny user input
-var removeEventListners = function removeEventListners() {
-    entering = false; //No more inputs from the user
-    red.removeEventListener("click",redFlash);
-    green.removeEventListener("click",greenFlash);
-    blue.removeEventListener("click",blueFlash);
-    yellow.removeEventListener("click",yellowFlash);
-}
-var addEventListeners = function addEventListener() {
-    red.addEventListener("click",redFlash);
-    green.addEventListener("click",greenFlash);
-    blue.addEventListener("click",blueFlash);
-    yellow.addEventListener("click",yellowFlash);
-    entering = true; //Inputs will be from the user
-}
-
-//Initialized for the game
-var simon = []; 
-var player = [];
-var entering = false; //Player is not entering values
+var simon = [];
+var player = []
 var setup = function() {
-    removeEventListners(); //Prevents user actions
-    simon = []; //Clears previous data
-    messenger = true; //Allows for gameover message
-    //Adds the four initial moves
+    removeEventListeners(); 
+    simon = [];
     for (i = 0; i < 4; i++) {
 	simon.push(Math.floor(Math.random() * 4));
     }
-    toplay(simon); //Plays the four initial moves
+    play(simon);
     player = []; //Clears previous player data
 }
-
-//To level up after completing a level
-var levelup = function() {
-    player = []; //Clears the data entered by the player 
-    simon.push(Math.floor(Math.random() * 4)); //Adds another move to simon's list
-    toplay(simon); //Plays the list again
+function check() {
+    removeEventListeners();
+    for (var i = 0; i < simon.length; i++) {
+	if (simon[i] != player[i]) {
+	    gameover();
+	    return;
+	}
+    }
+    levelup();
 }
-
-var messenger = false; //Prevents multiple gameover messages
-var gameover = function gameover() {
+function levelup() {
+    player = []
+    simon.push(Math.floor(Math.random * 4));
+    setTimeout(play, 500, simon);
+}
+function gameover() {
     output = "GAME OVER\n"; //Initial Message
     if (player.length > parseInt(high.innerHTML)) { //Checks for high scores 
 	output += "New high score of " + player.length + "!"; //Declares new high scores
@@ -153,10 +90,7 @@ var gameover = function gameover() {
     } else {
 	output += "You scored " + player.length + "."; //Just the score since there is no new high score
     }
-    if (messenger) { //If a message should be sent
-	messenger = false; //No more messages 
-	alert(output); //Alert the user of the game over status
-    }
+    alert(output); //Alert the user of the game over status
 }
 
 button.addEventListener("click", setup);
