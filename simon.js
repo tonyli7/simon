@@ -79,7 +79,7 @@ function check() {
 function levelup() {
     player = []
     simon.push(Math.floor(Math.random() * 4));
-    setTimeout(play, 500, simon);
+    setTimeout(play, 750, simon);
 }
 function gameover() {
     output = "GAME OVER\n"; //Initial Message
