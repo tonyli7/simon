@@ -4,8 +4,8 @@ var green = document.getElementById("1");
 var blue = document.getElementById("2");
 var yellow = document.getElementById("3");
 var sectors = [red, green, blue, yellow];
-var colors = ["red", "green", "blue", "yellow", "#808080", "#808080", "#808080", "#808080"];
-var flashes = ["#ffaaaa", "#aaffaa", "#aaaaff", "#ffffaa", "#8a8a8a", "#8a8a8a", "#8a8a8a", "#8a8a8a"]
+var colors = ["red", "green", "blue", "yellow", "#98002e", "#00f113", "#2153f2", "#ffd200", "#909090", "#909090", "#909090", "#909090"];
+var flashes = ["#ffaaaa", "#aaffaa", "#aaaaff", "#ffffaa", "#f8aaae", "#aaf1a3", "#a1a3f2", "#ffd2ba", "#a8a8a8", "#a8a8a8", "#a8a8a8", "#a8a8a8"]
 
 var high = document.getElementById("high"); //High score display
 
@@ -112,21 +112,21 @@ var toRotate = function() {
 	clearInterval(rotationID);
 	rotating = false;
     } else {
-	rotationID = setInterval(rotate, 500);
+	rotationID = setInterval(rotate, 200);
 	rotating = true;
     }
 }
 var rotate = function() {
     for (var i = 0; i < 4; i++) {
 	var degrees = parseInt(sectors[i].getAttribute("transform").split(" ")[0].slice(7));
-	degrees = (degrees + simon.length + 1) % 360;
+	degrees = (degrees + (simon.length/4 + 1)) % 360;
 	sectors[i].setAttribute("transform", "rotate(" + degrees.toString() + "  250 250)");
     }
 }
 
 var colorshift = 0;
 var changeColor = function() {
-    colorshift = (colorshift + 4) % 8
+    colorshift = (colorshift + 4) % colors.length;
     for (var i = 0; i < 4; i++) {
 	flash(i);
     }
