@@ -21,17 +21,6 @@
     cursor: pointer;
 }
 
-.circle{
-    float: left;
-}
-
-.info{
-    float: right;
-}
-
-.other{
-    float: bottom;
-}
 
 body{
     background-color:#000000
