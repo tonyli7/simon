@@ -21,6 +21,7 @@
     cursor: pointer;
 }
 
+
 body{
     background-color:#000000
 }
@@ -38,6 +39,7 @@ h2{
 h4{
     font-family: Emotion;
     color:#F8F8FF;
+    float: bottom;
 }
 
 text{
