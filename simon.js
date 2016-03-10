@@ -4,10 +4,9 @@ var green = document.getElementById("1");
 var blue = document.getElementById("2");
 var yellow = document.getElementById("3");
 var sectors = [red, green, blue, yellow];
-var colors = ["red", "green", "blue", "yellow"];
-var flashes = ["#ffaaaa", "#aaffaa", "#aaaaff", "#ffffaa"]
+var colors = ["red", "green", "blue", "yellow", "#808080", "#808080", "#808080", "#808080"];
+var flashes = ["#ffaaaa", "#aaffaa", "#aaaaff", "#ffffaa", "#8a8a8a", "#8a8a8a", "#8a8a8a", "#8a8a8a"]
 
-var button = document.getElementById("new"); //Button for starting the game
 var high = document.getElementById("high"); //High score display
 
 //Functions to flash the different sectors
@@ -24,8 +23,8 @@ var sounds = [red_sound, green_sound, blue_sound, yellow_sound];
 function flash(color_num) {
     console.log(colors[color_num]);
     sounds[color_num].play();
-    sectors[color_num].setAttribute("fill", flashes[color_num]);
-    setTimeout(function() {sectors[color_num].setAttribute("fill", colors[color_num]);}, 400);
+    sectors[color_num].setAttribute("fill", flashes[color_num + colorshift]);
+    setTimeout(function() {sectors[color_num].setAttribute("fill", colors[color_num + colorshift]);}, 400);
 }
 
 var playerAddition = function playerAddition() {
@@ -107,6 +106,16 @@ var startup = function() {
 }
 
 var rotationID;
+var rotating = false;
+var toRotate = function() {
+    if (rotating) {
+	clearInterval(rotationID);
+	rotating = false;
+    } else {
+	rotationID = setInterval(rotate, 500);
+	rotating = true;
+    }
+}
 var rotate = function() {
     for (var i = 0; i < 4; i++) {
 	var degrees = parseInt(sectors[i].getAttribute("transform").split(" ")[0].slice(7));
@@ -114,6 +123,15 @@ var rotate = function() {
 	sectors[i].setAttribute("transform", "rotate(" + degrees.toString() + "  250 250)");
     }
 }
-button.addEventListener("click", startup);
+
+var colorshift = 0;
+var changeColor = function() {
+    colorshift = (colorshift + 4) % 8
+    for (var i = 0; i < 4; i++) {
+	flash(i);
+    }
+}
+document.getElementById("new").addEventListener("click", startup);
+document.getElementById("spin").addEventListener("click", toRotate);
+document.getElementById("noColor").addEventListener("click", changeColor);    
 demoID = setInterval(demo, 500);
-rotationID = setInterval(rotate, 500);
