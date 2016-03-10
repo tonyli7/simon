@@ -7,7 +7,7 @@
   
   <body>
     <h1 align="center"> simon </h1>
-    <div style="text-align:center;">
+    <div class="circle" style="text-align:center;">
       <svg id="vimage" height="500" width="500">
 	<circle cx="250" cy="250" r="245" fill="grey" stroke="black"/>
 	<!--
@@ -35,23 +35,9 @@
 	<circle cx="250" cy="250" r="90" fill="grey" stroke="black"/>
 	<text x="175" y="260" font-size="40" fill="black">simon</text>
     </svg>
-    </div>
+    </div class="info">
       <table align="center">
-	<tr>
-	  <td>
-	    <button class="button" id="new" type="button">new game</button>
-	  </td>
-	</tr>
-	<tr>
-	  <td>
-	    <button class="button" id="spin" type="button">spin!</button>
-	  </td>
-	</tr>
-	<tr>
-	  <td>
-	    <button class="button" id="noColor" type="button">no color</button>
-	  </td>
-	</tr>
+	
 	<tr>
 	  <td>
 	    <h2> High Score: </h2>
@@ -68,7 +54,24 @@
 	    <h2 id="score">0</h2>
 	  </td>
 	</tr>
+	<tr>
+	  <td>
+	    <button class="button" id="new" type="button">new game</button>
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    <button class="button" id="spin" type="button">spin!</button>
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    <button class="button" id="noColor" type="button">no color</button>
+	  </td>
+	</tr>
       </table>
+</div>
+<div class="other">
     <h2>
       <u>How to play:</u>
     </h2>
@@ -88,6 +91,7 @@
 	  View the source code: <a href="https://github.com/tonyli7/simon"> Github </a>
 	</li>
     </h4>
+      </div>
   </body>
   <script src="simon.js"> </script>
 </html>
