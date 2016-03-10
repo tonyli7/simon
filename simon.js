@@ -131,6 +131,7 @@ var changeColor = function() {
 	flash(i);
     }
 }
+
 document.getElementById("new").addEventListener("click", startup);
 document.getElementById("spin").addEventListener("click", toRotate);
 document.getElementById("noColor").addEventListener("click", changeColor);    
