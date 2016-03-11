@@ -31,7 +31,7 @@ Bugs :disappointed:
 * ~~The code itself is rather poorly written. This is partially our fault for not understanding the javascript to the fullest, but also the quirks of javascript. For example, the calling of functions in other functions as parameters seem to only work if that function was stored in a variable.~~
   * Cleaned up code and wrote better functions.
 * ~~The code is further complicated with the only timing mechanism being `setTimeout()` and overriding the previous call if another is called before it. This lead to the linking of multiple functions in order for timing to work properly.~~
-  * Figured out how to pass parameters through setTimeout().
+  * Figured out how to pass parameters through `setTimeout()`.
 * ~~The sound files do not play if called in rapid succession, however this can be counteracted with increasing the time between flashes.~~
   * Addressed by shortening the length of the sound files. However, the issue may still occur if clicked in rapid succession.
 * ~~Theres bound to be more!~~ Hopefully not though! :smiley:
