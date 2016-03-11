@@ -1,4 +1,3 @@
-//Variables for elements on screen
 var red = document.getElementById("0");
 var green = document.getElementById("1");
 var blue = document.getElementById("2");
@@ -7,17 +6,17 @@ var sectors = [red, green, blue, yellow];
 var colors = ["red", "green", "blue", "yellow", "#98002e", "#00f113", "#2153f2", "#ffd200", "#909090", "#909090", "#909090", "#909090"];
 var flashes = ["#ffaaaa", "#aaffaa", "#aaaaff", "#ffffaa", "#f8aaae", "#aaf1a3", "#a1a3f2", "#ffd2ba", "#a8a8a8", "#a8a8a8", "#a8a8a8", "#a8a8a8"]
 
-var high = document.getElementById("high"); //High score display
+var high = document.getElementById("high");
+var score = document.getElementById("score");
 
-//Functions to flash the different sectors
 var red_sound = document.createElement("AUDIO");
 var green_sound = document.createElement("AUDIO");
 var blue_sound = document.createElement("AUDIO");
 var yellow_sound = document.createElement("AUDIO");
-red_sound.src="sound/E4.wav";
-green_sound.src="sound/G5.wav";
-blue_sound.src="sound/G4.wav";
-yellow_sound.src="sound/C4.wav";
+red_sound.src="sound/E4.mp3";
+green_sound.src="sound/G5.mp3";
+blue_sound.src="sound/G4.mp3";
+yellow_sound.src="sound/C4.mp3";
 var sounds = [red_sound, green_sound, blue_sound, yellow_sound];
 
 function flash(color_num) {
@@ -49,7 +48,7 @@ function addEventListeners() {
 var play = function play(steps) {
     if (steps.length > 0) {
 	flash(steps[0]);
-	setTimeout(play, 500, steps.slice(1, steps.length));
+	setTimeout(play, 600, steps.slice(1, steps.length));
     } else {
 	addEventListeners();
     }
@@ -78,19 +77,21 @@ function check() {
 }
 function levelup() {
     player = []
+    score.innerHTML = simon.length.toString();
     simon.push(Math.floor(Math.random() * 4));
     setTimeout(play, 750, simon);
 }
 function gameover() {
     output = "GAME OVER\n"; //Initial Message
-    if (player.length > parseInt(high.innerHTML)) { //Checks for high scores 
-	output += "New high score of " + player.length + "!"; //Declares new high scores
-	high.innerHTML = player.length.toString(); //Sets new high scores
+    var endscore = parseInt(score.innerHTML);
+    if (endscore > parseInt(high.innerHTML)) { //Checks for high scores 
+	output += "New high score of " + endscore.toString() + "!"; //Declares new high scores
+	high.innerHTML = endscore.toString(); //Sets new high scores
     } else {
-	output += "You scored " + player.length + "."; //Just the score since there is no new high score
+	output += "You scored " + endscore + "."; //Just the score since there is no new high score
     }
     alert(output); //Alert the user of the game over status
-    demoID = setInterval(demo, 500);
+    demoID = setInterval(demo, 600);
 }
 
 var demoID;
@@ -99,6 +100,7 @@ var demo = function demo() {
 }
 var startup = function() {
     clearInterval(demoID);
+    score.innerHTML = "0";
     for (var i = 0; i < 4; i++) {
 	flash(i);
     }
@@ -135,4 +137,4 @@ var changeColor = function() {
 document.getElementById("new").addEventListener("click", startup);
 document.getElementById("spin").addEventListener("click", toRotate);
 document.getElementById("noColor").addEventListener("click", changeColor);    
-demoID = setInterval(demo, 500);
+demoID = setInterval(demo, 600);
